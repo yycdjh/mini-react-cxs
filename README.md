@@ -9,3 +9,15 @@
 3、同过 createTextNode、createElement 动态创建
 
 4、动态创建 el 节点, 实现 render 函数
+
+# day2
+
+1、实现任务调度器
+
+2、现实 fiber 架构
+链表渲染
+如何转换成链表
+创建 dom
+处理 props
+转换链表 设置好指针
+返回下一个要执行的任务
