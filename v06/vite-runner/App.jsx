@@ -1,14 +1,28 @@
-import React   from "./core/React.js";
+import React from "./core/React.js";
 
 // const App = React.createElement("div", { id: "app" }, "hi-mini-react");
-const App = <div>
-  <div>111
-    <div>hi-mini-react12</div>
-  </div>
-</div>
-function AppOne() {
-  return <div>hi-mini-react</div>;
+function Counter({ num }) {
+  return <div>count: {num}</div>
 }
 
-console.log(AppOne)
+function CounterContainer() {
+  return <Counter></Counter>
+}
+
+// const App = (
+//   <div>
+//     hi-mini-react12<Counter></Counter>
+//   </div>
+// );
+function App() {
+  return (
+    <div>
+      hi-mini-react
+      <Counter num={10}></Counter>
+      <Counter num={20}></Counter>
+      {/* <CounterContainer></CounterContainer> */}
+    </div>
+  )
+}
+
 export default App;

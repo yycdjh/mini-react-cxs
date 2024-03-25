@@ -16,9 +16,11 @@ function createElement(type, props, ...children) {
     type,
     props: {
       ...props,
-      children: children.map((child) =>
-        typeof child === "string" ? createTextNode(child) : child
-      ),
+      children: children.map((child) => {
+        const isTextNode =
+          typeof child === "string" || typeof child === "number";
+        return isTextNode ? createTextNode(child) : child;
+      }),
     },
   };
 }
@@ -60,7 +62,16 @@ function commitRoot() {
 
 function commitWork(fiber) {
   if (!fiber) return;
-  fiber.parent.dom.append(fiber.dom);
+
+  let fiberParent = fiber.parent;
+  while (!fiberParent.dom) {
+    fiberParent = fiberParent.parent;
+  }
+
+  if (fiber.dom) {
+    fiberParent.dom.append(fiber.dom);
+  }
+
   commitWork(fiber.child);
   commitWork(fiber.sibling);
 }
@@ -79,8 +90,7 @@ function updateProps(dom, props) {
   });
 }
 
-function initChildren(fiber) {
-  const children = fiber.props.children;
+function initChildren(fiber, children) {
   let prevChild = null;
   children.forEach((child, index) => {
     const newFiber = {
@@ -102,34 +112,45 @@ function initChildren(fiber) {
 }
 
 function performWorkOfUnit(fiber) {
-  // 创建dom
-  if (!fiber.dom) {
-    const dom = (fiber.dom = createDom(fiber.type));
+  const isFunctionComponent = typeof fiber.type === "function";
 
-    // fiber.parent.dom.append(dom);
+  // 不是FunctionComponent才需要创建dom
+  if (!isFunctionComponent) {
+    // 创建dom
+    if (!fiber.dom) {
+      const dom = (fiber.dom = createDom(fiber.type));
 
-    //  处理props
+      // fiber.parent.dom.append(dom);
 
-    updateProps(dom, fiber.props);
+      //  处理props
+
+      updateProps(dom, fiber.props);
+    }
   }
+  const children = isFunctionComponent
+    ? [fiber.type(fiber.props)]
+    : fiber.props.children;
   // 转换链表 设置指针
-  initChildren(fiber);
+  initChildren(fiber, children);
 
   // 返回下一个任务
   if (fiber.child) {
     return fiber.child;
   }
 
-  if (fiber.sibling) {
-    return fiber.sibling;
+  let nextFiber = fiber;
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
+    nextFiber = nextFiber.parent;
   }
-
-  return fiber.parent?.sibling;
+  // return fiber.parent?.sibling;
 }
 
 const React = {
-  createElement,
   render,
+  createElement,
 };
 
 export default React;
