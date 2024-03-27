@@ -31,3 +31,18 @@
 2、实现函数组件
 
 3、重构函数组件
+
+# day4
+
+1、实现绑定事件
+
+- 1、观察 vdom 数据
+- 2、判断处理的地方在 updateProps 的时候
+
+2、更新 props
+
+- 1、如何得到新的 dom 树 执行了 render -> 实现 update 定义 currentRoot
+
+- 2、如何找到老的节点 创建一个属性指向老的节点 alternate
+
+- 3、
