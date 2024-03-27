@@ -46,5 +46,12 @@
 - 1、如何得到新的 dom 树 执行了 render -> 实现 update 定义 currentRoot
 
 - 2、如何找到老的节点 创建一个属性指向老的节点 alternate
+- - 1、判断新老节点的 type
+- - 2、给节点带上标签 effectTag(placement、update)
+- - 3、重置 oldFiber
 
-- 3、
+- 3、新老节点对比
+- - 1、重构 updateProps
+- - - 1、old 有 new 没有 删除
+- - - 2、new 有 old 没有 添加
+- - - 3、new 有 old 有 修改
