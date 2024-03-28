@@ -57,3 +57,29 @@
     - 1、old 有 new 没有 删除
     - 2、new 有 old 没有 添加
     - 3、new 有 old 有 修改
+
+# day5
+
+1、 type 不一致,更新删除
+
+- 获取到老节点 oldFiber
+- 统一删除
+- 删除函数组件 dom 问题循环找 parent
+
+2、删除多余的老节点
+
+- oldFiber 位置
+- 不止一个子节点情况 循环找 sibling
+
+3、解决 edge case
+
+- child 为 false 如何解决
+- child 为 false 时下一个 sibling 问题
+
+4、优化更新
+
+- 更新子组件时，其他不相关的组件也重新渲染了
+
+- 拿到开始节点- 当前的更新组件
+
+- 结束点下一个任务是它的兄弟节点
