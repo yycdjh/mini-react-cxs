@@ -83,3 +83,19 @@
 - 拿到开始节点- 当前的更新组件
 
 - 结束点下一个任务是它的兄弟节点
+
+# day6
+
+1、 实现 useState
+
+- 先实现执行 function
+- oldHook 如何存储
+
+2、 批量执行 action
+
+- 当每次执行 setState 的时候收集所有 action
+- 下次调用 useState 的时候批量调用 action
+
+3、提前监测，建没必要的更新
+
+- 在执行 setState 时，提前执行 action 跟 stateHook.state 对比
