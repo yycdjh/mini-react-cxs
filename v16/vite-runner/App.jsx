@@ -1,7 +1,7 @@
 import React from "./core/React.js";
 
 function Foo() {
-  console.log('rerun')
+  console.log('re run foo')
   const [count, setCount] = React.useState(10)
   const [bar, setBar] = React.useState('bar')
 
@@ -11,6 +11,14 @@ function Foo() {
     setBar(() => 'bar')
 
   }
+
+  React.useEffect(() => {
+    console.log('init')
+  }, [])
+
+  React.useEffect(() => {
+    console.log('update', count)
+  }, [count])
   return (
     <div>
       <h1>foo</h1>
