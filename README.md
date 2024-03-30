@@ -106,12 +106,12 @@
 
 - 存起来 effecthooks
 - 调用时机 在 commitWork 之后 commitEffectHook
-- - 依次遍历找到对应的节点
-- - 两种情况 初始化、依赖项有没有改变
+  - 依次遍历找到对应的节点
+  - 两种情况 初始化、依赖项有没有改变
 
 2、实现 cleanUp
 
 - 存一下返回出去 cleanup 函数, 在执行 callback 的时候
 - 收集所有的 cleanup
 - 在 run 之前调用
-- - 取之前的节点遍历执行 cleanup
+  - 取之前的节点遍历执行 cleanup
